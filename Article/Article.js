@@ -71,6 +71,13 @@ const data = [
         Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
   },
   {
+    title: 'Uchechukwu\'s Code',
+    date: '6th Nov, 2019',
+    firstParagraph: `THIS LIFE IS BEAUTIFUL`,
+    secondParagraph: `I am the Lord that healeth thee`,
+    thirdParagraph: `He is exalted, the king is exalted on high. i will praise him`
+  },
+  {
     title: 'Professional Software Development in 2019',
     date: 'Jan 1st, 2019',
     firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
@@ -87,8 +94,9 @@ const data = [
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
-
-/* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
+/* Step 1: Create a function that creates a component. You will want 
+your component 
+to look like the template below: 
   
   <div class="article">
     <h2>{title of the article}</h2>
@@ -101,14 +109,69 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as it's one argument, 
+  or 5 separate arguments mapping to each piece of the data object above.
 
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  Step 2: Add an event listener to the expandButton span. 
+  This event listener should toggle the class 'article-open' on
+   the 'article' div.
 
   Step 3: return the entire component.
 
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+  Step 4: Map over the data, creating a component for each oject and 
+  add each component to the DOM as children of the 'articles' div.
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+  Step 5: Add a new article to the array. Make sure it is in the same
+   format as the others. Refresh the page to see the new article.
 
 */
+function createArticle(obj) {
+  //Create Elements
+  let article = document.createElement('div');
+  let articleHeader = document.createElement('h2');
+  let articleDate = document.createElement('p');
+  let articlePara1 = document.createElement('p');
+  let articlePara2 = document.createElement('p');
+  let articlePara3 = document.createElement('p');
+  let expandButton = document.createElement('span');
+
+  //Append to article
+  article.appendChild(articleHeader);
+  article.appendChild(articleDate);
+  article.appendChild(articlePara1);
+  article.appendChild(articlePara2);
+  article.appendChild(articlePara3);
+  article.appendChild(expandButton);
+
+
+  //Add Classes
+ article.classList.add('article');
+ articleDate.classList.add('date');
+ expandButton.classList.add('expandButton');
+
+ //Content nko?
+ articleHeader.textContent = obj.title;
+ articleDate.textContent = obj.date;
+ articlePara1.textContent = obj.firstParagraph;
+ articlePara2.textContent = obj.secondParagraph;
+ articlePara3.textContent = obj.thirdParagraph;
+ expandButton.textContent = 'expand';
+
+  //Event for expandButton
+  expandButton.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  });
+
+  return article;
+};
+
+//Select articles div
+const articles = document.querySelector('.articles');
+
+//Map over data 
+ let finishedWork = data.map((obj) => {
+    let art = createArticle(obj);
+    articles.appendChild(art);
+    return art;
+});
+console.log(finishedWork);
